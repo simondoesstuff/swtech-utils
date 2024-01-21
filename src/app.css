@@ -8,7 +8,7 @@
         color: theme(colors.primary.200);
     }
 
-    input, textarea {
+    input, textarea, [contenteditable] {
         background-color: transparent;
         box-shadow: none;
         outline: none;

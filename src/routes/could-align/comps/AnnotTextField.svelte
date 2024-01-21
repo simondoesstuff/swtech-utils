@@ -6,10 +6,10 @@
     }
 
     export let text = "hello world?";
+    export let annotations: Annotation[];
 
     let inputField: HTMLInputElement;
 
-    let annotations: Annotation[];
     const annotFillDefaults = (a: Annotation): Annotation => ({
         bg: "transparent",
         bg_opacity: 100,
@@ -25,51 +25,45 @@
     $: if (inputField && fgWidth) {
         inputField.style.width = `${text.length * fgWidth}px`;
     }
-
-    // todo: debug
-
-    $: annotations = Array(text.length)
-        .fill(null)
-        .map((_, i) => ({
-            bg: `${i % 3 == 0 ? "red" : "blue"}`,
-            bg_opacity: i % 2 == 0 ? 50 : 100,
-            fg: `${i % 3 == 1 ? "cyan" : ""}`,
-        }));
 </script>
 
-<div id="AnnotTextField">
+<div id="AnnotTextField" class="relative">
     <input
         bind:this={inputField}
         bind:value={text}
         on:scroll={() => inputField.scrollLeft = 0}
-        class="absolute z-20 mono text-transparent"/>
+        class="mono z-20 text-transparent tl"/>
 
 <!-- Backing element  -->
 
     <div id="backing">
 <!--        FG text   -->
-        <span>
+        <span class="tl">
             {#each text as letter, i}
-                <span
-                    bind:offsetWidth={fgWidth}
-                    style={`
-                       color: ${annotAt(i)?.fg};
-                    `}
-                    class="z-10 mono"
-                >{letter}</span>
+                {#key annotations[i]}
+                    <span
+                            bind:offsetWidth={fgWidth}
+                            style={`
+                           color: ${annotAt(i)?.fg};
+                        `}
+                            class="z-10 mono"
+                    >{letter}</span>
+                {/key}
             {/each}
         </span>
 
 <!--        BG    -->
         <span>
             {#each text as letter, i}
-                <span
-                    style={`
-                       background-color: ${annotAt(i)?.bg};
-                       filter: opacity(${annotAt(i)?.bg_opacity}%);
-                    `}
-                    class="text-transparent mono"
-                >{letter}</span>
+                {#key annotations[i]}
+                    <span
+                            style={`
+                           background-color: ${annotAt(i)?.bg};
+                           filter: opacity(${annotAt(i)?.bg_opacity}%);
+                        `}
+                            class="mono text-transparent"
+                    >{letter}</span>
+                {/key}
             {/each}
         </span>
     </div>
@@ -81,12 +75,16 @@
         caret-color: white;
     }
 
+    .tl {
+        @apply absolute top-0 left-0;
+    }
+
     .mono {
-        @apply font-mono text-xl text-center;
-        letter-spacing: 5px;
+        @apply font-mono text-xl text-center whitespace-pre;
+        letter-spacing: 4px;
     }
 
     #backing > span {
-        @apply absolute whitespace-pre mono;
+        @apply mono select-none;
     }
 </style>
