@@ -55,7 +55,7 @@
                     style={`
                        color: ${annotAt(i)?.fg};
                     `}
-                    class="z-10"
+                    class="z-10 mono"
                 >{letter}</span>
             {/each}
         </span>
@@ -68,7 +68,7 @@
                        background-color: ${annotAt(i)?.bg};
                        filter: opacity(${annotAt(i)?.bg_opacity}%);
                     `}
-                    class="text-transparent"
+                    class="text-transparent mono"
                 >{letter}</span>
             {/each}
         </span>

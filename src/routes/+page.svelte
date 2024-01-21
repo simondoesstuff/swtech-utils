@@ -3,6 +3,6 @@
     Home
   </h1>
 
-  <!--  A svelte kit link to /could-align -->
+  <!--  A svelte kit link to /could_align -->
   <a href="/could-align" class="text-blue-500 hover:text-blue-700 p-5">/Could-Align</a>
 </div>
