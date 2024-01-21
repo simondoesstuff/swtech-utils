@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        background-color: theme(colors.bg.900);
+        color: theme(colors.primary.200);
+    }
+
+    input, textarea {
+        background-color: transparent;
+        box-shadow: none;
+        outline: none;
+    }
+}
