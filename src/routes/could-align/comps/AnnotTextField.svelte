@@ -5,8 +5,7 @@
         fg?: string;
     }
 
-    export let text = "acgtcgatacgtacgta";
-    $: text = text.toUpperCase();
+    export let text = "hello world?";
 
     let inputField: HTMLInputElement;
 
@@ -43,7 +42,7 @@
         bind:this={inputField}
         bind:value={text}
         on:scroll={() => inputField.scrollLeft = 0}
-        class="absolute z-20 mono text-[#ffffff01]"/>
+        class="absolute z-20 mono text-transparent"/>
 
 <!-- Backing element  -->
 
@@ -78,12 +77,16 @@
 </div>
 
 <style lang="postcss">
+    input {
+        caret-color: white;
+    }
+
     .mono {
         @apply font-mono text-xl text-center;
         letter-spacing: 5px;
     }
 
     #backing > span {
-        @apply absolute whitespace-pre capitalize mono;
+        @apply absolute whitespace-pre mono;
     }
 </style>
