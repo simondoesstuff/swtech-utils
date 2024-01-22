@@ -6,7 +6,7 @@
     }
 
     export let text = "hello world?";
-    export let annotations: Annotation[];
+    export let annotations: Annotation[] = [];
 
     let inputField: HTMLInputElement;
 
@@ -40,7 +40,7 @@
 <!--        FG text   -->
         <span class="tl">
             {#each text as letter, i}
-                {#key annotations[i]}
+                {#key annotations}
                     <span
                             bind:offsetWidth={fgWidth}
                             style={`
@@ -55,7 +55,7 @@
 <!--        BG    -->
         <span>
             {#each text as letter, i}
-                {#key annotations[i]}
+                {#key annotations}
                     <span
                             style={`
                            background-color: ${annotAt(i)?.bg};
