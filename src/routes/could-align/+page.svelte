@@ -38,7 +38,7 @@
 
         annotations = qScores.map((scores) =>
             scores.map((score: number) => {
-                let color = score > .1 ? [0, 1, .2] : [1, 0, .2];
+                let color = score > 0 ? [0, 1, .2] : [1, 0, .2];
                 color = color.map(c => Math.floor(c * 255));
                 return {
                     fg: score <= .5 ? 'white' : 'black',
