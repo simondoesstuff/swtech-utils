@@ -24,8 +24,6 @@
     let timing = [0, 0];
     let annotations: any[] = [];
     async function reevaluate() {
-        console.log('reeval')
-
         let t0 = performance.now();
         const evTokens = tokenIdFreqMany(evidence, tokenSize);
         let t1 = performance.now();
@@ -43,7 +41,7 @@
                 return {
                     fg: score <= .5 ? 'white' : 'black',
                     bg: `rgb(${color.join(',')})`,
-                    bg_opacity: .9 * Math.max(Math.min(score * 100, 100), 20)
+                    bg_opacity: .9 * Math.max(Math.min(score, 1), .2)
                 }
             }));
     }
@@ -52,7 +50,7 @@
 
     let evalLast: number = 0;
     let evalTimeout: NodeJS.Timeout | null;
-    const evalTimeoutTime = 250;
+    const evalTimeoutTime = 200;
     function evalTimer() {
         if (evalTimeout) clearTimeout(evalTimeout);
 

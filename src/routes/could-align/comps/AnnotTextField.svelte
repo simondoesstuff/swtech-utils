@@ -10,20 +10,19 @@
 
     let inputField: HTMLInputElement;
 
-    const annotFillDefaults = (a: Annotation): Annotation => ({
-        bg: "transparent",
-        bg_opacity: 100,
-        fg: "",
-        ...a,
-    });
-    const annotAt: (i: number) => Annotation | null = (i) =>
-        annotations.length > i ?
-            annotFillDefaults(annotations[i]) :
-            null;
-
     let fgWidth: number;
     $: if (inputField && fgWidth) {
         inputField.style.width = `${text.length * fgWidth}px`;
+    }
+
+    let elFg: HTMLSpanElement[] = [];
+    let elBg: HTMLSpanElement[] = [];
+    $: for (let i = 0; i < text.length; i++) {
+        if (!elFg[i] || !elBg[i]) continue;
+        annotations[i] ??= {};
+        elFg[i].style.color = annotations[i].fg ?? "white";
+        elBg[i].style.backgroundColor = annotations[i].bg ?? "transparent";
+        elBg[i].style.opacity = (annotations[i].bg_opacity ?? 1).toString();
     }
 </script>
 
@@ -39,31 +38,22 @@
     <div id="backing">
 <!--        FG text   -->
         <span class="tl">
-            {#each text as letter, i}
-                {#key annotations}
-                    <span
-                            bind:offsetWidth={fgWidth}
-                            style={`
-                           color: ${annotAt(i)?.fg};
-                        `}
-                            class="z-10 mono"
-                    >{letter}</span>
-                {/key}
+            {#each text as letter, i (i)}
+                <span
+                    bind:offsetWidth={fgWidth}
+                    bind:this={elFg[i]}
+                    class="z-10 mono"
+                >{letter}</span>
             {/each}
         </span>
 
 <!--        BG    -->
         <span>
-            {#each text as letter, i}
-                {#key annotations}
-                    <span
-                            style={`
-                           background-color: ${annotAt(i)?.bg};
-                           filter: opacity(${annotAt(i)?.bg_opacity}%);
-                        `}
-                            class="mono text-transparent"
-                    >{letter}</span>
-                {/key}
+            {#each text as letter, i (i)}
+                <span
+                    bind:this={elBg[i]}
+                    class="mono text-transparent"
+                >{letter}</span>
             {/each}
         </span>
     </div>
