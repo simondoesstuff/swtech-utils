@@ -24,11 +24,6 @@
             <button on:click={() => resolve('down')}>
                 👇
             </button>
-            <div>
-                <button id="close" on:click={() => resolve('close')}>
-                    x
-                </button>
-            </div>
         </div>
     </div>
 
@@ -47,15 +42,7 @@
 
     button {
         @apply hover:bg-primary-300 hover:scale-90 transition-transform;
-        @apply opacity-50 hover:opacity-100;
-    }
-
-    .float > button {
         @apply border border-primary-300 rounded p-1;
-    }
-
-    #close {
-        @apply absolute -top-4 -right-2 z-10;
-        @apply font-extrabold text-xl rounded-full p-0.5 hover:text-black;
+        @apply opacity-50 hover:opacity-100;
     }
 </style>

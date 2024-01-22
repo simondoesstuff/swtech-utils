@@ -5,6 +5,8 @@
 
     let queries: string[] = ['hello world?']
     let evidence: string[] = ['hey world!'];
+    $: queries = queries.filter(q => q.length > 0);
+    $: evidence = evidence.filter(e => e.length > 0);
 
     let tokenSize = 2;
     function parseInput(event: InputEvent) {
@@ -154,11 +156,11 @@
         class="annotBlock"
         on:mouseup={checkSelection}
     >
-        {#each evidence as e, i}
+        {#each evidence as e}
             {#if e}
                 <div>
                     <AnnotTextField
-                        bind:text={evidence[i]}
+                        bind:text={e}
                         annotations={[]}
                     />
                 </div>
