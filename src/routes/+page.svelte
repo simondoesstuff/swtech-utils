@@ -1,8 +1,8 @@
-<div class="text-3xl">
-  <h1 class="font-bold underline">
-    Home
-  </h1>
+<script>
+  import {goto} from "$app/navigation";
+  import {onMount} from "svelte";
 
-  <!--  A svelte kit link to /could_align -->
-  <a href="/could-align" class="text-blue-500 hover:text-blue-700 p-5">/Could-Align</a>
-</div>
+  onMount(() => {
+    goto("/could-align");
+  });
+</script>
